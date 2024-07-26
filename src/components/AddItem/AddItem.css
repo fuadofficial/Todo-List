@@ -4,12 +4,14 @@
     margin-top: 50px;
 }
 .add-item-container input{
+    max-width: 500px;
     width: 40%;
     height: 45px;
     border: none;
     border-radius: 4px;
     padding:0 20px;
     outline: none;
+    font-size: 20px;
     margin-right: 10px;
 }
 .add-item-container button{
