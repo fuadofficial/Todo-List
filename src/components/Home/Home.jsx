@@ -1,11 +1,10 @@
-import { useEffect, useRef, useState } from "react";
+import { useState, useRef } from "react";
 import AddItem from "../AddItem/AddItem";
 import TodoList from "../TodoList/TodoList";
 import "./Home.css";
 
 const Home = () => {
     const [inputValue, setInputValue] = useState("");
-
     const [todos, setTodos] = useState([
         { name: "iPhone 13" },
         { name: "Samsung Galaxy S21" },
@@ -13,32 +12,50 @@ const Home = () => {
         { name: "OnePlus 9" },
         { name: "Xiaomi Mi 11" },
     ]);
+    const [editIndex, setEditIndex] = useState(null);  // Track the index of the item being edited
 
-    const handleCange = (event) => {
-        setInputValue(event.target.value)
+    const inputRef = useRef(null);
+
+    const handleChange = (event) => {
+        setInputValue(event.target.value);
     };
 
     const addValue = () => {
         if (inputValue !== "") {
-            setTodos([...todos, { name: inputValue }]);
-            setInputValue("")
+            if (editIndex !== null) {
+                // Update the existing item
+                const updatedTodos = todos.map((todo, index) =>
+                    index === editIndex ? { name: inputValue } : todo
+                );
+                setTodos(updatedTodos);
+                setEditIndex(null);  // Reset edit index after updating
+            } else {
+                // Add a new item
+                setTodos([...todos, { name: inputValue }]);
+            }
+            setInputValue("");
+        }
+    };
+
+    const handleKeyDown = (event) => {
+        if (event.key === 'Enter') {
+            addValue();
         }
     };
 
     const deleteItem = (index) => {
         setTodos(todos.filter((_, item) => item !== index));
-        console.log(index);
-    }
+        if (index === editIndex) {
+            setEditIndex(null);  // Clear edit index if deleted item was being edited
+            setInputValue("");  // Clear input field
+        }
+    };
 
     const editItem = (index) => {
-        setInputValue(todos[index].name)
-    }
-
-    const inputRef = useRef(null);
-
-    useEffect(() => {
+        setInputValue(todos[index].name);
+        setEditIndex(index);
         inputRef.current.focus();
-    }, []);
+    };
 
     return (
         <div className="home-container">
@@ -47,7 +64,13 @@ const Home = () => {
                     <h1>MOBILE SHOP</h1>
                 </div>
                 <div className="add-item">
-                    <AddItem inputValue={inputValue} handleCange={handleCange} addValue={addValue} inputRef={inputRef} />
+                    <AddItem
+                        handleKeyDown={handleKeyDown}
+                        inputValue={inputValue}
+                        handleChange={handleChange}
+                        addValue={addValue}
+                        inputRef={inputRef}
+                    />
                 </div>
                 <div className="todo-list">
                     <TodoList todos={todos} deleteItem={deleteItem} editItem={editItem} />

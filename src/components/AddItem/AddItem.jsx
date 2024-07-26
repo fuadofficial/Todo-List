@@ -1,11 +1,17 @@
 /* eslint-disable react/prop-types */
 import "./AddItem.css";
 
-const AddItem = ({ handleCange, addValue, inputValue,inputRef }) => {
-
+const AddItem = ({ inputValue, handleChange, addValue, inputRef,handleKeyDown  }) => {
   return (
     <div className="add-item-container">
-      <input ref={inputRef} value={inputValue} onChange={handleCange} type="text" placeholder="add your mobile..." />
+      <input
+        placeholder="Add new item..."
+        type="text"
+        value={inputValue}
+        onChange={handleChange}
+        ref={inputRef} 
+        onKeyDown={handleKeyDown}
+      />
       <button onClick={addValue}>Add</button>
     </div>
   );
