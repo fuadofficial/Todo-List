@@ -3,21 +3,21 @@ import "./TodoList.css";
 import { MdDelete } from "react-icons/md";
 import { FaEdit } from "react-icons/fa";
 
-const TodoList = ({ todos }) => {
+const TodoList = ({ todos, deleteItem, editItem }) => {
 
   return (
     <div className="todo-list-container">
-      {todos.map((data,index) => {
+      {todos.map((data, index) => {
         return (
           <div className="list" key={index}>
             <div className="data">
               <span>{data.name}</span>
             </div>
             <div className="buttons">
-              <button>
+              <button onClick={() => editItem(index, data.name)}>
                 <FaEdit />
               </button>
-              <button>
+              <button onClick={() => deleteItem(index)}>
                 <MdDelete />
               </button>
             </div>
