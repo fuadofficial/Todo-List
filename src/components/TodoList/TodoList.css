@@ -1,0 +1,28 @@
+.todo-list-container {
+  width: 70%;
+  max-width: 600px;
+}
+.todo-list-container .list{
+    padding: 10px 15px;
+    background-color: #fff;
+    display: flex;
+    justify-content: space-between;
+    margin-top: 5px;
+    border-radius: 4px;
+}
+.todo-list-container .list ul li {
+  list-style: none;
+  font-size: 20px;
+}
+.todo-list-container .buttons button {
+  padding: 10px;
+  border: none;
+  margin-right: 5px;
+  border-radius: 5px;
+  background-color: rgb(79, 79, 250);
+  color: #fff;
+  transition: all 300ms ease-in-out;
+}
+.todo-list-container .buttons button:hover {
+  background-color: rgb(45, 45, 247);
+}
