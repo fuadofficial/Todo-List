@@ -1,20 +1,27 @@
-import { useState, useRef } from "react";
+import { useState, useRef, useEffect } from "react";
 import AddItem from "../AddItem/AddItem";
 import TodoList from "../TodoList/TodoList";
 import "./Home.css";
 
 const Home = () => {
     const [inputValue, setInputValue] = useState("");
-    const [todos, setTodos] = useState([
-        { name: "iPhone 13" },
-        { name: "Samsung Galaxy S21" },
-        { name: "Google Pixel 6" },
-        { name: "OnePlus 9" },
-        { name: "Xiaomi Mi 11" },
-    ]);
-    const [editIndex, setEditIndex] = useState(null);  // Track the index of the item being edited
+    const [todos, setTodos] = useState([]);
+    const [editIndex, setEditIndex] = useState(null);
 
     const inputRef = useRef(null);
+
+    // Load todos from localStorage on component mount
+    useEffect(() => {
+        const storedTodos = JSON.parse(localStorage.getItem("todos"));
+        if (storedTodos) {
+            setTodos(storedTodos);
+        }
+    }, []);
+
+    // Save todos to localStorage whenever the todos state changes
+    useEffect(() => {
+        localStorage.setItem("todos", JSON.stringify(todos));
+    }, [todos]);
 
     const handleChange = (event) => {
         setInputValue(event.target.value);
