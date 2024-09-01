@@ -37,7 +37,11 @@ Responsive Design: The app is fully responsive, providing an optimal experience 
 
 
 
+
+
+
 Frontend: React
+
 
 
 
@@ -46,3 +50,10 @@ State Management: React useState hook for managing tasks
 
 
 
+
+Video : 
+
+
+
+
+https://github.com/user-attachments/assets/4fa0cff0-a038-4184-96de-d7f3fb6e863e
